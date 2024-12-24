@@ -13,6 +13,11 @@ SPIDER_MODULES = ["pocket_patron.spiders"]
 NEWSPIDER_MODULE = "pocket_patron.spiders"
 
 
+# Ensure only valid image URLs are processed
+MEDIA_ALLOW_REDIRECTS = True
+ITEM_PIPELINES = {'pocket_patron.pipelines.CustomImagesPipeline': 1}
+IMAGES_STORE = 'downloads'
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "pocket_patron (+http://www.yourdomain.com)"
 

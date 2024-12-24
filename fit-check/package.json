@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.47.10",
     "bootstrap": "^5.3.3",
     "dayjs": "^1.11.12",
     "next": "latest",

@@ -1,14 +1,13 @@
 'use client'
 
 import DisplayShows from "../components/DisplayShows"
-import ShowCard from "../components/showCard"
+import Comparison from "../components/Comparison"
 
 export default function FirstPost() {
     return (
         <>
-        <div className="flex">
+            <Comparison />
             <DisplayShows />
-        </div>
         </>
         )
 }

@@ -14,10 +14,17 @@ export const metadata = {
   description: 'Track clothes',
 }
  
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, modal }) {
   return (
     <html lang="en" className={`${DMSans.variable}`}>
-      <body>{children}</body>
+      <body style={{
+          margin: `0 auto`,
+          maxWidth: 1080,
+          padding: `0 1.0875rem 1.45rem`,
+        }}>
+        {children}
+        {modal}
+        </body>
     </html>
   )
 }

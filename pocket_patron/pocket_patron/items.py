@@ -5,8 +5,9 @@
 
 import scrapy
 
-
 class PocketPatronItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    title = scrapy.Field()
+    url = scrapy.Field()
+    image_urls = scrapy.Field()  # For ImagesPipeline
+    images = scrapy.Field()  # Stores metadata about downloaded images
+    season = scrapy.Field()
