@@ -1,47 +1,32 @@
-'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { createClient } from '../../../../../utils/supabase/server';
 import { Modal } from '@/components/Modal';
+import Image from 'next/image';
 
-interface Show {
-    id: string;
-    title: string;
-    description?: string;
-}
 
 interface Props {
     params: { show_id: string };
 }
 
-export default function ShowPage({ params }: Props) {
-    const { show_id } = params;
-    const [show, setShow] = useState<Show | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+// use query directly in page to render on server side https://supabase.com/docs/guides/getting-started/quickstarts/nextjs
+export default async function ShowPage({ params }: Props) {
 
-    useEffect(() => {
-        const fetchShow = async () => {
-            try {
-                const response = await fetch(`/api/show/${show_id}`);
-                if (!response.ok) throw new Error('Failed to fetch show');
-
-                const data: Show = await response.json();
-                setShow(data);
-            } catch (err) {
-                if (err instanceof Error) setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchShow();
-    }, [show_id]);
-
-    if (loading) return <p></p>;
-    if (error) return <p>Error: {error}</p>;
+    const { show_id } = await params;
+    const supabase = await createClient();
+    const { data: show } = await supabase.from("shows").select("*").eq('show_id', show_id).single();
 
     return (
         <Modal>
-            <h1>{show?.title}</h1>
+            <div className='grid md:grid-cols-2 grid-cols-1 gap-3'>
+                <div>
+                    <Image src={show?.image_url} alt={show?.title} width={629} height={1024} />
+                </div>
+            <div className="flex flex-col">
+                <div className='font-sans font-bold text-2xl'>{show?.title}</div>
+                <div>{show?.season}</div>
+                <button className='justify-self-end'>Submit</button>
+            </div>
+            </div>
         </Modal>
     );
 }

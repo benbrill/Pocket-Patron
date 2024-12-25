@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import ShowCard from './ShowCard';
 
 
-
+// TODO: see https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes#generating-static-params
 const DisplayCard: React.FC = () => {
 
     const [shows, setShows] = useState<{ show_id: number; image_url: string; title: string, season: number, created_at: EpochTimeStamp, url:string }[]>([]);
