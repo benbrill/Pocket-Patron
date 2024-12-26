@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useEffect, useState } from 'react';
-import ShowCard from './ShowCard';
+import ShowCardLink from './ShowCardLink';
 
 
 // TODO: see https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes#generating-static-params
@@ -19,7 +19,7 @@ const DisplayCard: React.FC = () => {
     return (
         <div className='grid grid-cols-3 lg:grid-cols-6 gap-2'>
             {shows.map((show: { show_id: number; image_url: string; title: string }) => (
-            <ShowCard key={show.show_id} title = {show.title} show_id = {show.show_id} imageUrl={show.image_url}/>
+            <ShowCardLink key={show.show_id} title = {show.title} show_id = {show.show_id} imageUrl={show.image_url}/>
             ))}
         </div>
     );
