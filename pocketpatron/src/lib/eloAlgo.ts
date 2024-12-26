@@ -17,8 +17,8 @@ export interface EloScores {
  */
 export const calculateElo = (
     eloScores: EloScores,
-    winnerId: string,
-    loserId: string
+    winnerId: number,
+    loserId: number
 ): EloScores => {
     // Validate IDs
     if (!(winnerId in eloScores) || !(loserId in eloScores)) {
