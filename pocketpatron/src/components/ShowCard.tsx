@@ -19,7 +19,7 @@ const ShowCard: React.FC<ShowCardProps> = ({ title, imageUrl, show_id, handleCli
         >
             <Image src={imageUrl} alt={title} className="show-card__image" width={629} height={1024} />
             <div className="show-card__content">
-                <h2 className="show-card__title">{title}</h2>
+                <div className="show-card__title font-sans text-2xl font-semibold tracking-tight">{title}</div>
             </div>
         </div>
     );

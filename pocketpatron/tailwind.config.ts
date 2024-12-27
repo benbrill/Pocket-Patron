@@ -8,6 +8,20 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+	letterSpacing: {
+		tightest: '-0.07em',
+		tighter: '-0.025em',
+		tight: '-0.0125em',
+		normal: '0',
+		wide: '0.0125em',
+		wider: '0.025em',
+		widest: '0.05em'
+	},
+	fontFamily: {
+		'sans': ['var(--font-dm-sans)'],
+		'serif': ['var(--font-serif)'],
+		'mono': ['var(--font-mono)']
+	},
   	extend: {
   		colors: {
   			background: 'hsl(var(--background))',
