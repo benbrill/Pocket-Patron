@@ -30,11 +30,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${dmSans.variable} ${dmMono.variable} antialiased`}
-        style={{
-          margin: `0 auto`,
-          maxWidth: 1080,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
+        // style={{
+        //   margin: `0 auto`,
+        //   maxWidth: 1080,
+        //   padding: `0 1.0875rem 1.45rem`,
+        // }}
         >
         <ThemeProvider
           attribute="class"

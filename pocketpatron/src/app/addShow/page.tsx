@@ -45,6 +45,13 @@ export default function AddShows() {
 
     return (
         <>
+        <div className="h-72 w-full p-3 bg-gradient-to-t from-zinc-900 
+        from-10% to-transparent to-30% mb-5 mt-5 flex 
+        justify-center items-center border-b-2">
+        {selectedShows.length <= 0 && 
+        <div className='text-2xl font-sans font-medium text-zinc-200'>
+            Add some shows, why don't ya?
+            </div>}
         <div className='grid grid-cols-3 lg:grid-cols-6 gap-2'>
             {selectedShows.map((show_id) => {
                 const show = shows.find((show) => show.show_id === show_id);
@@ -61,8 +68,9 @@ export default function AddShows() {
                 return null;
             })}
         </div>
+        </div>
         <Button onClick={handleSubmit}>Submit Shows</Button>
-        <div className='grid grid-cols-3 lg:grid-cols-6 gap-2'>
+        <div className='grid grid-cols-3 lg:grid-cols-6 gap-4'>
             {shows.map((show: { show_id: number; image_url: string; title: string }) => (
             <ShowCard key={show.show_id} 
                 title = {show.title} 

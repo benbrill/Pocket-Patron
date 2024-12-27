@@ -20,7 +20,7 @@ export default {
 	fontFamily: {
 		'sans': ['var(--font-dm-sans)'],
 		'serif': ['var(--font-serif)'],
-		'mono': ['var(--font-mono)']
+		'mono': ['var(--font-dm-mono)']
 	},
   	extend: {
   		colors: {
