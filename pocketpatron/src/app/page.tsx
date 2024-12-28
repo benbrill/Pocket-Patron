@@ -1,12 +1,15 @@
 import DisplayCard from "../components/DisplayCard";
 import ShowRankings from "@/components/ShowRankings";
+import Logo from "@/components/Logo";
+import { createClient } from "../../utils/supabase/server";
+import {auth} from "../lib/auth"
+import SignIn from "@/components/SignIn";
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="font-[family-name:var(--font-mono-sans)]">
-      <div className="flex justify-center items-center h-20 w-fit p-3 bg-yellow-400 text-black mb-5 mt-5">
-        <span className="text-6xl tracking-tightest font-sans font-extrabold">PocketPatron</span>
-      </div>
+      <Logo />
+      <SignIn />
       <ShowRankings />
       <DisplayCard />
     </div>
