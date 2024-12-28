@@ -89,7 +89,7 @@ const ShowComparison: React.FC = () => {
 
     // ✅ Fetch shows on initial load
     useEffect(() => {
-        fetch(`/api/user_shows/${'98d5677a-aaad-473a-b798-284a244f261e'}`, { cache: 'no-store' })
+        fetch(`/api/user_shows/`, { cache: 'no-store' })
             .then((response) => {
                 if (!response.ok) throw new Error(`Failed to fetch shows: ${response.statusText}`);
                 return response.json();

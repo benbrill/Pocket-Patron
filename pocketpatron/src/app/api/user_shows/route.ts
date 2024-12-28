@@ -1,4 +1,4 @@
-import { createClient } from '../../../../../utils/supabase/server';
+import { createClient } from '../../../../utils/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 
@@ -12,12 +12,12 @@ type userShows = {
   }
 };
 
-export async function GET(
-  request: NextRequest,
-  context: { params: Promise<{ user_id: string }> }
-) {
-  const { user_id } = await context.params;
+export async function GET() {
   const supabase = await createClient();
+
+  const { data : { user }, error : userError } = await supabase.auth.getUser();
+  const user_id = user?.id;
+
   const { data: shows } = await supabase.from("user_shows").select('show_id, elo_score, shows (title, image_url, season)').eq('user_id', user_id);
   
   if (!shows) {

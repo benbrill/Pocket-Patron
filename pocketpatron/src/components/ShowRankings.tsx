@@ -7,7 +7,8 @@ import Link from "next/link";
 export default async function ShowRankings() {
     const supabase = await createClient();
 
-    const user_id = '98d5677a-aaad-473a-b798-284a244f261e'
+    const { data: { user }, error : userError } = await supabase.auth.getUser();
+    const user_id = user.id;
     const {data: shows} = await supabase.from("latest_user_show_scores").select('*').eq('user_id', user_id).order('elo_score', {ascending: false});
 
     const truncate = (text: string) => {

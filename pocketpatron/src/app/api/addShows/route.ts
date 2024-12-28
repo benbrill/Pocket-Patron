@@ -1,10 +1,9 @@
 import { createClient } from "../../../../utils/supabase/server";
 
 export async function PUT(request : Request){
-
+    const supabase = await createClient();
     const res = await request.json();
 
-    const supabase = await createClient();
     const { data: { user }, error : userError } = await supabase.auth.getUser();
     const user_id = user.id;
 
