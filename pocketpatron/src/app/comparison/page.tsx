@@ -4,6 +4,7 @@ import { calculateElo } from "@/lib/eloAlgo";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useRouter } from "next/navigation";
 
 type Show = {
   show_id: number;
@@ -25,6 +26,7 @@ const ShowComparison: React.FC = () => {
     const [shows, setShows] = useState<Show[]>([]);
     const [currentPair, setCurrentPair] = useState<[Show, Show] | null>(null);
     const [comparisonHistory, setComparisonHistory] = useState<Set<ComparisonKey>>(new Set());
+    const router = useRouter();
 
     // ✅ Select a unique random pair
     const selectRandomPair = (data: Show[]) => {
@@ -118,6 +120,8 @@ const ShowComparison: React.FC = () => {
               console.log('Rankings submitted successfully.');
           })
           .catch((error) => console.error('Error submitting rankings:', error));
+
+        router.push('/');
     }
 
     const truncate = (text: string) => {

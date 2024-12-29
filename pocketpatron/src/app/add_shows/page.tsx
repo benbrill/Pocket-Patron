@@ -4,13 +4,16 @@ import ShowCard from "@/components/ShowCard";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
+
 
 
 //cache shows?
 export default function AddShows() {
     const [shows, setShows] = useState<{ show_id: number; image_url: string; title: string, season: number, created_at: EpochTimeStamp, url:string }[]>([]);
     const [selectedShows, setSelectedShows] = useState<number[]>([]);
-    
+    const router = useRouter();
+
     useEffect(() => {
         fetch('/api/shows')
             .then(response => response.json())
@@ -43,26 +46,28 @@ export default function AddShows() {
             console.log('Shows submitted successfully.');
         })
         .catch(error => console.error('Error submitting shows:', error));
+
+        
+        router.push('/comparison');
         setSelectedShows([]);
     }
 
     return (
         <>
-        <Logo />
         <div className="h-72 w-full p-3 bg-gradient-to-t from-zinc-900 
         from-10% to-transparent to-30% mb-5 mt-5 flex 
-        justify-center items-center border-b-2">
+        justify-center items-center border-b-2 overflow-x-scroll overflow-y-hidden">
         {selectedShows.length <= 0 && 
         <div className='text-2xl font-sans font-medium text-zinc-200'>
             Add some shows, why don't ya?
             </div>}
-        <div className='flex flex-nowrap overflow-x-scroll gap-2'>
+        <div className='flex flex-nowrap  gap-2 flex-shrink-0'>
             {selectedShows.map((show_id) => {
                 const show = shows.find((show) => show.show_id === show_id);
                 if (show) {
                     return (
-                        <div key={show_id} className='h-100 w-300 flex-shrink-0'>
-                            <Image src={show.image_url} key={show_id} alt={show.title} width={100} height={300}/>
+                        <div className="relative h-80 w-40 cursor-pointer" key = {show.show_id} onClick={() => handleShowSelect(show.show_id)}> 
+                            <Image src={show.image_url} alt = {show.title} layout="fill" objectFit="contain" />
                         </div>
                     );
                 }
@@ -70,7 +75,10 @@ export default function AddShows() {
             })}
         </div>
         </div>
-        <Button onClick={handleSubmit}>Submit Shows</Button>
+        {
+            selectedShows.length > 0 && 
+            <Button onClick={handleSubmit} className="font-sans text-lg m-3">Submit Shows</Button>
+        }
         <div className='grid grid-cols-3 lg:grid-cols-6 gap-4'>
             {shows.map((show: { show_id: number; image_url: string; title: string }) => (
             <ShowCard key={show.show_id} 
