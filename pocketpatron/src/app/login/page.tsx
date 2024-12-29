@@ -54,7 +54,7 @@ export default function AuthPage() {
               return;
           }
 
-          router.push('/dashboard'); // Redirect to a protected route
+          router.push('/'); // Redirect to a protected route
       } else {
           // Handle Signup
           const { error } = await supabase.auth.signUp({
@@ -68,12 +68,12 @@ export default function AuthPage() {
               return;
           }
 
-          router.push('/dashboard'); // Redirect after signup
+          router.push('/'); // Redirect after signup
       }
   };
 
   return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center 1vh">
           <Card className="w-full max-w-md">
               <CardHeader>
                   <CardTitle>{isLogin ? 'Login' : 'Sign Up'}</CardTitle>
