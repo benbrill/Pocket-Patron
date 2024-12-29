@@ -11,7 +11,7 @@ interface Props {
 // use query directly in page to render on server side https://supabase.com/docs/guides/getting-started/quickstarts/nextjs
 export default async function ShowPage({ params }: Props) {
 
-    const { show_id } = await params;
+    const { show_id } = params;
     const supabase = await createClient();
     const { data: show } = await supabase.from("shows").select("*").eq('show_id', show_id).single();
 
