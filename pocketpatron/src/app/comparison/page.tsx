@@ -1,8 +1,9 @@
 'use client'
 import { useState, useEffect } from "react";
-import ShowCard from "@/components/ShowCard";
 import { calculateElo } from "@/lib/eloAlgo";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Show = {
   show_id: number;
@@ -14,9 +15,9 @@ type Show = {
   url: string;
 }
 
-type EloScores = {
-  [show_id: number]: number;
-}
+// type EloScores = {
+//   [show_id: number]: number;
+// }
 
 type ComparisonKey = `${number}-${number}`;
 
@@ -119,26 +120,50 @@ const ShowComparison: React.FC = () => {
           .catch((error) => console.error('Error submitting rankings:', error));
     }
 
+    const truncate = (text: string) => {
+        return text.length > 35 ? text.substring(0, 35) + '...' : text;
+    }
+
     return (
-        <div>
-            <h1>Show Comparison</h1>
+        <div className="flex items-center flex-col bg-gradient-to-t h-lvh from-zinc-900 from-10% to-transparent to-30%">
+            <div className="text-3xl font-semibold tracking-tigheter font-sans mb-3">Choose your favorite</div>
             {currentPair ? (
-                <div className="show-comparison grid grid-cols-3 lg:grid-cols-6 gap-2">
+                <div className="show-comparison flex lg:flex-row flex-col lg:justify-center items-center gap-4 w-full">
                     {currentPair.map((show) => (
-                        <ShowCard
-                            key={show.show_id}
-                            title={show.title}
-                            imageUrl={show.image_url}
-                            show_id={show.show_id}
-                            handleClick={handleShowClick}
-                        />
+                        <div onClick={() => handleShowClick(show.show_id)} key = {show.show_id} 
+                            className="w-2/5 lg:w-1/6 px-1 flex flex-col items-center justify-start bg-gradient-to-bl from-zinc-600 to-zinc-800 rounded-md backdrop-opacity-20 ring-2 ring-zinc-600 cursor-pointer">
+                            <div className="relative h-72 w-full cursor-pointer"> 
+                                <Image src={show.image_url} alt = {show.title} layout="fill" objectFit="contain" />
+                            </div>
+                            <div>
+                                <div className = "font-mono text-m text-center">{show.season}</div>
+                                <div className="text-xl font-black font-sans text-center opacity-100-important">{truncate(show.title)}</div>
+                            </div>
+                        </div>
+                        // <ShowCard
+                        //     key={show.show_id}
+                        //     title={show.title}
+                        //     imageUrl={show.image_url}
+                        //     show_id={show.show_id}
+                        //     handleClick={handleShowClick}
+                        // />
                     ))}
                 </div>
             ) : (
-                <p>No more unique comparisons available.</p>
+                <div className="show-comparison flex lg:flex-row flex-col lg:justify-center items-center gap-4 w-full">
+                    <div></div>
+                    <Skeleton className="w-2/5 lg:w-1/6 h-80 flex flex-col items-center gap-2"> 
+                        <Skeleton className="h-72 w-3/4" />
+                        <Skeleton className="w-44 h-7 p-4"/>
+                    </Skeleton>
+                    <Skeleton className="w-2/5 lg:w-1/6 h-80 flex flex-col items-center gap-2"> 
+                        <Skeleton className="h-72 w-3/4" />
+                        <Skeleton className="w-44 h-7 p-4"/>
+                    </Skeleton>
+                </div>
             )}
 
-            <Button onClick={handleRankingsSubmit}>Submit Rankings</Button>
+            <Button onClick={handleRankingsSubmit} className = "mt-4">Submit Rankings</Button>
         </div>
     );
 };

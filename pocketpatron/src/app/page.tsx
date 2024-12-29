@@ -8,7 +8,6 @@ import SignIn from "@/components/SignIn";
 export default async function Home() {
   return (
     <div className="font-[family-name:var(--font-mono-sans)]">
-      <Logo />
       <SignIn />
       <ShowRankings />
       <DisplayCard />
