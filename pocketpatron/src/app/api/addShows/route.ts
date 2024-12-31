@@ -5,7 +5,7 @@ export async function PUT(request : Request){
     const res = await request.json();
 
     const { data: { user }, error : userError } = await supabase.auth.getUser();
-    const user_id = user.id;
+    const user_id = user?.id;
 
     const new_data = res.show_ids.map((show_id : number) => ({show_id, user_id: user_id}));
 

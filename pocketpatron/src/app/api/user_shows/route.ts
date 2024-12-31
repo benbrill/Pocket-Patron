@@ -9,7 +9,7 @@ type userShows = {
     title: string;
     image_url: string;
     season: number;
-  }
+  }[]
 };
 
 export async function GET() {
@@ -18,7 +18,7 @@ export async function GET() {
   const { data : { user }, error : userError } = await supabase.auth.getUser();
   const user_id = user?.id;
 
-  const { data: shows } = await supabase.from("user_shows").select('show_id, elo_score, shows (title, image_url, season)').eq('user_id', user_id);
+  const { data: shows } = await supabase.from("user_shows").select('show_id, elo_score, shows!inner (title, image_url, season)').eq('user_id', user_id);
   
   if (!shows) {
     return NextResponse.json([]);
@@ -27,9 +27,9 @@ export async function GET() {
   const flattenedShows = shows.map((show) => ({
   show_id: show.show_id,
   elo_score: show.elo_score,
-  title: show.shows.title,
-  image_url: show.shows.image_url,
-  season: show.shows.season
+  title: show.shows[0].title,
+  image_url: show.shows[0].image_url,
+  season: show.shows[0].season
   }));
   
   return NextResponse.json(flattenedShows);
