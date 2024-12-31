@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, use } from 'react';
 
 interface Show {
     id: string;
@@ -8,10 +8,11 @@ interface Show {
 }
 
 interface Props {
-    params: { show_id: string };
+    params: Promise<{ show_id: string }>;
 }
 
-export default function ShowPage({ params }: Props) {
+export default function ShowPage(props: Props) {
+    const params = use(props.params);
     const { show_id } = params;
     const [show, setShow] = useState<Show | null>(null);
     const [loading, setLoading] = useState<boolean>(true);

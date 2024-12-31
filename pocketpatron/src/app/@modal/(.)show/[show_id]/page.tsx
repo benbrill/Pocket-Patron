@@ -5,11 +5,12 @@ import Image from 'next/image';
 
 
 interface Props {
-    params: { show_id: string };
+    params: Promise<{ show_id: string }>;
 }
 
 // use query directly in page to render on server side https://supabase.com/docs/guides/getting-started/quickstarts/nextjs
-export default async function ShowPage({ params }: Props) {
+export default async function ShowPage(props: Props) {
+    const params = await props.params;
 
     const { show_id } = params;
     const supabase = await createClient();
