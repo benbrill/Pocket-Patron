@@ -68,7 +68,7 @@ export default function AuthPage() {
               return;
           }
 
-          router.push('/'); // Redirect after signup
+          router.push('/dashboard'); // Redirect after signup
       }
   };
 

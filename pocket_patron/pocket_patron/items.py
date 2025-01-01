@@ -11,3 +11,8 @@ class PocketPatronItem(scrapy.Item):
     image_urls = scrapy.Field()  # For ImagesPipeline
     images = scrapy.Field()  # Stores metadata about downloaded images
     season = scrapy.Field()
+    description = scrapy.Field()
+    theater = scrapy.Field()
+    theater_address = scrapy.Field()
+    tags = scrapy.Field()
+
