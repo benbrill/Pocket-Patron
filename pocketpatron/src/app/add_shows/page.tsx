@@ -79,7 +79,11 @@ export default function AddShows() {
             selectedShows.length > 0 && 
             <Button onClick={handleSubmit} className="font-sans text-lg m-3">Submit Shows</Button>
         }
-        <div className='grid grid-cols-3 lg:grid-cols-6 gap-4'>
+        <div className='grid grid-cols-3 lg:grid-cols-6 gap-4 '  style={{
+              margin: `0 auto`,
+              maxWidth: 1080,
+              padding: `0 1.0875rem 1.45rem`,
+            }}>
             {shows.map((show: { show_id: number; image_url: string; title: string }) => (
             <ShowCard key={show.show_id} 
                 title = {show.title} 

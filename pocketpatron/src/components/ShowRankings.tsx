@@ -27,8 +27,8 @@ export default async function ShowRankings() {
                     </div>
                 )
             }
-            <div className="text-4xl font-sans font-bold my-2">Show Rankings</div>
             <div className="flex flex-col items-center gap-2">
+                <div className="text-4xl font-sans font-bold my-2 m-auto">Show Rankings</div>
                 {shows?.map((show) => (
                     <Link href={`/show/${show.show_id}`} key={show.show_id} className="grid grid-cols-3 gap-2 w-full lg:w-1/2 mx-3 border-b-2" scroll={false}>
                         <div className="flex justify-center items-center pb-2">
@@ -44,6 +44,12 @@ export default async function ShowRankings() {
                         </div>
                     </Link>
                 ))}
+                {shows?.length !== 0 && (
+                        <Link href="/add_shows" className="m-2">
+                            <Button className="text-lg font-sans">Add More Shows</Button>
+                        </Link>
+                )
+            }
             </div>
         </div>
     );
