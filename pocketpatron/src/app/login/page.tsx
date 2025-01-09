@@ -54,7 +54,7 @@ export default function AuthPage() {
               return;
           }
 
-          router.push('/'); // Redirect to a protected route
+          router.push('/dashboard'); // Redirect to a protected route
       } else {
           // Handle Signup
           const { error } = await supabase.auth.signUp({

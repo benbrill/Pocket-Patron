@@ -19,7 +19,7 @@ export default {
 	},
 	fontFamily: {
 		'sans': ['var(--font-dm-sans)'],
-		'serif': ['var(--font-serif)'],
+		'serif': ['var(--font-neuton)'],
 		'mono': ['var(--font-dm-mono)']
 	},
   	extend: {

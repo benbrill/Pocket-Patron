@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Mono, DM_Sans } from "next/font/google";
+import { DM_Mono, DM_Sans, Neuton } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import Logo from "@/components/Logo";
@@ -14,6 +14,12 @@ const dmMono = DM_Mono({
   weight: "400",
   subsets: ["latin"],
 });
+
+const neuton = Neuton({
+  variable: "--font-neuton",
+  weight: "400",
+  subsets: ["latin"]
+})
 
 export const metadata: Metadata = {
   title: "PocketPatron",
@@ -30,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${dmSans.variable} ${dmMono.variable} antialiased`}
+        className={`${dmSans.variable} ${dmMono.variable} ${neuton.variable} antialiased`}
         // style={{
         //   margin: `0 auto`,
         //   maxWidth: 1080,
