@@ -18,8 +18,8 @@ export default {
 		widest: '0.05em'
 	},
 	fontFamily: {
-		'sans': ['var(--font-dm-sans)'],
-		'serif': ['var(--font-neuton)'],
+		'sans': ['var(--font-instrument-sans)'],
+		'serif': ['var(--font-instrument-serif)'],
 		'mono': ['var(--font-dm-mono)']
 	},
   	extend: {

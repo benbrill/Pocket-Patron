@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
           protocol: 'https',
           hostname: 'assets.playbill.com',
           port: '',
-          pathname: '/playbill-covers/**',
+          pathname: '/**',
         },
       ],
     },

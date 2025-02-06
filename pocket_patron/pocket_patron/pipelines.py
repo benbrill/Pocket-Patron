@@ -16,7 +16,7 @@ import os
 
 class CustomImagesPipeline(ImagesPipeline):
     def file_path(self, request, response=None, info=None, *, item=None):
-        title = item.get('title', 'unknown_title').replace(' ', '_')
+        title = item.get('title', 'unknown_title').replace(' ', '_').replace(':', '_').replace('/', '_').replace('\\', '_').replace('?', '_').replace('*', '_').replace('"', '_').replace('<', '_').replace('>', '_').replace('|', '_')
         season = item.get('season', 'unknown_season')
         filename = f"{season}_{title}.jpg"
         return f"full/{filename}"

@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
-import { DM_Mono, DM_Sans, Neuton } from "next/font/google";
+import { DM_Mono, DM_Sans, Neuton, Instrument_Serif, Instrument_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import Logo from "@/components/Logo";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
+  subsets: ["latin"],
+});
+
+const instrumentSerif = Instrument_Serif({ 
+  variable: "--font-instrument-serif", weight: "400", subsets: ["latin"] 
+});
+
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -36,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${dmSans.variable} ${dmMono.variable} ${neuton.variable} antialiased`}
+        className={`${dmSans.variable} ${dmMono.variable} ${neuton.variable} ${instrumentSerif.variable} ${instrumentSans.variable} antialiased`}
         // style={{
         //   margin: `0 auto`,
         //   maxWidth: 1080,

@@ -25,6 +25,8 @@ export default async function ShowPage(props: Props) {
             <div className="flex flex-col">
                 <div className='font-sans font-bold text-2xl'>{show?.title}</div>
                 <div>{show?.season}</div>
+                <div>{show?.theater}</div>
+                <div>{show?.description}</div>
                 <button className='justify-self-end'>Submit</button>
             </div>
             </div>
