@@ -5,8 +5,9 @@ class ScraperSpider(scrapy.Spider):
     name = "history_scraper"
     allowed_domains = ["playbill.com"]
 
-    years = [2021, 2022, 2023, 2024]
-    years += [i for i in range(2010,2020)]
+    # years = [2021, 2022, 2023, 2024]
+    # years += [i for i in range(2010,2020)]
+    years = [i for i in range(1995,2010)]
     start_urls = [f"https://playbill.com/seasons?year={i}" for i in years]
 
     def parse(self, response):
