@@ -22,7 +22,7 @@ const DisplayCard: React.FC = () => {
               maxWidth: 1080,
               padding: `0 1.0875rem 1.45rem`,
             }}>
-            {shows.map((show: { show_id: number; image_url: string; title: string }) => (
+            {shows.map((show: { show_id: number; image_url: string; title: string; season: number }) => (
             <ShowCardLink key={show.show_id} title = {show.title}  season={show.season} show_id = {show.show_id} imageUrl={show.image_url}/>
             ))}
         </div>
