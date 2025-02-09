@@ -1,7 +1,22 @@
 import React from 'react';
 import { createClient } from '../../../../../utils/supabase/server';
 import { Modal } from '@/components/Modal';
+import { Button } from '@/components/ui/button';
+import { cn } from "@/lib/utils"
 import Image from 'next/image';
+import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+  } from "@/components/ui/drawer"
+import { Input } from '@/components/ui/input';
+import AddShow from '@/components/AddShow';
+
 
 
 interface Props {
@@ -18,17 +33,21 @@ export default async function ShowPage(props: Props) {
 
     return (
         <Modal>
-            <div className='grid md:grid-cols-2 grid-cols-1 gap-3'>
+            <div className='grid grid-cols-2 gap-3'>
                 <div>
-                    <Image src={show?.image_url} alt={show?.title} width={629} height={1024} />
+                    <Image src={`/${show?.image_filename}`} alt={show?.title} width={629} height={1024} />
                 </div>
-            <div className="flex flex-col">
-                <div className='font-sans font-bold text-2xl'>{show?.title}</div>
-                <div>{show?.season}</div>
-                <div>{show?.theater}</div>
-                <div>{show?.description}</div>
-                <button className='justify-self-end'>Submit</button>
+            <div className="flex flex-col justify-between">
+                <div>
+                    <div className='font-mono text-muted-foreground'>{show?.season} · Broadway</div>
+                    <div className='font-sans font-bold text-2xl'>{show?.title}</div>
+                    <div>{show?.theater}</div>
+                </div>
+                <div className='flex flex-col gap-2'>
+                    <AddShow show={show}/>
+                </div>
             </div>
+            <div className='col-span-2'>{show?.description}</div>
             </div>
         </Modal>
     );
