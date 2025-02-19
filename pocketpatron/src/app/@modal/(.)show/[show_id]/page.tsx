@@ -1,20 +1,7 @@
 import React from 'react';
 import { createClient } from '../../../../../utils/supabase/server';
 import { Modal } from '@/components/Modal';
-import { Button } from '@/components/ui/button';
-import { cn } from "@/lib/utils"
 import Image from 'next/image';
-import {
-    Drawer,
-    DrawerClose,
-    DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
-  } from "@/components/ui/drawer"
-import { Input } from '@/components/ui/input';
 import AddShow from '@/components/AddShow';
 
 

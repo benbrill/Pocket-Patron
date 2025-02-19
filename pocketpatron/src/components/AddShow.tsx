@@ -83,7 +83,8 @@ function ProfileForm({ className, show_id }: React.ComponentProps<"form"> & { sh
         body: JSON.stringify({ show_id, ...validatedData })
       }).then(response => {
         if (!response.ok) throw new Error(`Failed to submit shows: ${response.statusText}`);
-        router.push('/comparison')
+        router.refresh();
+        router.push('/comparison');
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
