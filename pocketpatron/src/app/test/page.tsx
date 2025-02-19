@@ -4,7 +4,7 @@ import AddShow from "@/components/AddShow";
 export default function Test() {
 return (
   <div>
-    <AddShow/>
+    {/* <AddShow/> */}
   </div>
   );
 }
