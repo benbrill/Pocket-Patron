@@ -4,7 +4,7 @@ import { Modal } from '@/components/Modal';
 import Image from 'next/image';
 import AddShow from '@/components/AddShow';
 
-interface UserShow {
+export interface UserShow {
     user_show_id: number;
     watched_at: string;
     elo_score: number;

@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useRouter } from "next/navigation"
+import {DialogClose, DialogTrigger } from "@/components/ui/dialog"
 
 import { z } from 'zod';
 
@@ -70,7 +71,13 @@ function ProfileForm({ className, show_id }: React.ComponentProps<"form"> & { sh
   };
 
   const router = useRouter();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    apiCall(event);
+    reroute();
+  }
+
+  const apiCall = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       // Validate form data
@@ -82,11 +89,7 @@ function ProfileForm({ className, show_id }: React.ComponentProps<"form"> & { sh
         body: JSON.stringify({ show_id, ...validatedData })
       }).then(response => {
         if (!response.ok) throw new Error(`Failed to submit shows: ${response.statusText}`);
-        console.log("here")
-
       });
-      router.push('/comparison/new');
-      router.refresh();  // Forces a Next.js client-side refresh
     } catch (error) {
       if (error instanceof z.ZodError) {
         // Map Zod errors to state
@@ -96,6 +99,11 @@ function ProfileForm({ className, show_id }: React.ComponentProps<"form"> & { sh
         console.error('Error submitting shows:', error);
       }
     }
+  };
+
+  const reroute = () => {
+    router.push('/comparison/new');
+    router.refresh();  // Forces a Next.js client-side refresh
   };
 
   return (
@@ -110,7 +118,11 @@ function ProfileForm({ className, show_id }: React.ComponentProps<"form"> & { sh
       <Input id="notes" placeholder="Add thoughts and feelings" value={formData.notes} onChange={handleChange} />
       {formErrors.notes && <p className="text-red-500">{formErrors.notes}</p>}
     </div>
-    <Button type="submit">Add viewing</Button>
+    <DialogTrigger asChild>
+      <DrawerClose asChild>
+        <Button type="submit">Add viewing</Button>
+      </DrawerClose>
+    </DialogTrigger>
   </form>
   )
   }
