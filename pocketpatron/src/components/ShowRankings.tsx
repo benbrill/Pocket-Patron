@@ -32,7 +32,7 @@ export default async function ShowRankings() {
                 {shows?.map((show) => (
                     <Link href={`/show/${show.show_id}`} key={show.show_id} className="grid grid-cols-3 gap-2 w-full lg:w-1/2 mx-3 border-b-2" scroll={false}>
                         <div className="flex justify-center items-center pb-2">
-                            <Image src={`/${show.image_filename}`} alt={show.title} width={75} height={200}/>
+                            <Image src={`/${show.image_filename}`} alt={show.title} width={75} height={200} unoptimized/>
                         </div>
                         <div className="flex flex-col justify-center">
                             <div className="text-xl font-semibold font-sans">{truncate(show.title)}</div>
