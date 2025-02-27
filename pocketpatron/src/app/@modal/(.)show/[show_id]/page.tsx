@@ -18,7 +18,7 @@ export default async function ShowPage(props: Props) {
     const supabase = await createClient();
     const { data: show } = await supabase.from("shows").select("*").eq('show_id', show_id).single();
 
-    return (
+    return ( 
         <Modal>
             <div className='grid grid-cols-2 gap-3'>
                 <div>
