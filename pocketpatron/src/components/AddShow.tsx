@@ -71,7 +71,7 @@ function ProfileForm({ className, show_id }: React.ComponentProps<"form"> & { sh
 
   const router = useRouter();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    // event.preventDefault();
+    event.preventDefault();
     try {
       // Validate form data
       const validatedData = formSchema.parse(formData);
