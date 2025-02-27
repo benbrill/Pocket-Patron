@@ -71,8 +71,6 @@ function ProfileForm({ className, show_id }: React.ComponentProps<"form"> & { sh
 
   const router = useRouter();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
     try {
       // Validate form data
       const validatedData = formSchema.parse(formData);
@@ -83,8 +81,8 @@ function ProfileForm({ className, show_id }: React.ComponentProps<"form"> & { sh
         body: JSON.stringify({ show_id, ...validatedData })
       }).then(response => {
         if (!response.ok) throw new Error(`Failed to submit shows: ${response.statusText}`);
-        router.refresh();
-        router.push('/comparison');
+
+        router.replace('/comparison');
       });
     } catch (error) {
       if (error instanceof z.ZodError) {

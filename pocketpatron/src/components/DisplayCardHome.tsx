@@ -93,7 +93,7 @@ export default function DisplayCardHome({ data }: DisplayCardHomeProps) {
                 {filteredShows.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((show) => (
                     <Link href={`/show/${show.show_id}`} scroll={false} key={show.show_id}>
                         <div className="show-card cursor-pointer bg-zinc-700 rounded-sm border-3 outline-zinc-200 outline-offset-4">
-                            <Image src={`/${show.image_filename}`} alt={show.title} className="show-card__image" width={629} height={1024} />
+                            <Image src={`/${show.image_filename}`} alt={show.title} className="show-card__image" width={629} height={1024} unoptimized/>
                             <div className="show-card__content mx-1 pb-1">
                                 <div className='text-s font-mono text-muted-foreground leading-tight'>{show.season}</div>
                                 <div className="show-card__title font-sans text-l font-light tracking-tight leading-tight">

@@ -22,7 +22,7 @@ export default async function ShowPage(props: Props) {
         <Modal>
             <div className='grid grid-cols-2 gap-3'>
                 <div>
-                    <Image src={`/${show?.image_filename}`} alt={show?.title} width={629} height={1024} />
+                    <Image src={`/${show?.image_filename}`} alt={show?.title} width={629} height={1024} unoptimized />
                 </div>
             <div className="flex flex-col justify-between">
                 <div>

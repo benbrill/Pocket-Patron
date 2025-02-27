@@ -138,7 +138,7 @@ const ShowComparison: React.FC = () => {
                         <div onClick={() => handleShowClick(show.show_id)} key = {show.show_id} 
                             className="w-2/5 lg:w-1/6 px-1 flex flex-col items-center justify-start bg-gradient-to-bl from-zinc-600 to-zinc-800 rounded-md backdrop-opacity-20 ring-2 ring-zinc-600 cursor-pointer">
                             <div className="relative h-72 w-full cursor-pointer"> 
-                                <Image src={`/${show.image_filename}`} alt = {show.title} layout="fill" objectFit="contain" />
+                                <Image src={`/${show.image_filename}`} alt = {show.title} layout="fill" objectFit="contain" unoptimized />
                             </div>
                             <div>
                                 <div className = "font-mono text-m text-center">{show.season}</div>
