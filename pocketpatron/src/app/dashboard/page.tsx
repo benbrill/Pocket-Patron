@@ -3,6 +3,7 @@ import ShowRankings from "@/components/ShowRankings";
 import SignIn from "@/components/SignIn";
 import Signout from "@/components/Signout";
 import { createClient } from "../../../utils/supabase/client";
+import TopShows from "@/components/TopShows";
 
 async function getData() {
       const supabase = await createClient();
@@ -15,8 +16,7 @@ export default async function Home() {
   console.log(data);
   return (
     <div className="font-[family-name:var(--font-mono-sans)]">
-      <Signout />
-      <ShowRankings />
+      <TopShows />
       <DisplayCardHome data={data}/>
     </div>
   );

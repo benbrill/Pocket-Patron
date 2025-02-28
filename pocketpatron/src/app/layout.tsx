@@ -3,6 +3,7 @@ import { DM_Mono, DM_Sans, Neuton, Instrument_Serif, Instrument_Sans } from "nex
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import Logo from "@/components/Logo";
+import NavBar from "@/components/NavBar";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -23,6 +24,7 @@ const dmMono = DM_Mono({
   variable: "--font-dm-mono",
   weight: "400",
   subsets: ["latin"],
+  fallback: ["Arial"]
 });
 
 const neuton = Neuton({
@@ -63,6 +65,7 @@ export default function RootLayout({
         </div>
         {modal}
         {children}
+        <NavBar />
         </ThemeProvider>
       </body>
     </html>
