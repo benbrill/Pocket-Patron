@@ -11,6 +11,12 @@ export default function NavBar() {
 
     const minNavBar = `bg-zinc-800 h-10 w-10 flex justify-center items-center text-xl`
 
+    if (isLaunch) {
+        return (
+        <>
+        </>)
+    }
+
     return (
     <div className="flex justify-center">
         <div className = 'fixed bottom-5 m-auto flex justify-center items-center'>
