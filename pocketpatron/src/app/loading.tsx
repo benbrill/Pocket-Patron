@@ -5,3 +5,4 @@ export default function Loading() {
         </div>
     );
 }
+// https://nextjs.org/docs/app/building-your-application/optimizing/lazy-loading

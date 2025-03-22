@@ -12,7 +12,7 @@ BOT_NAME = "pocket_patron"
 SPIDER_MODULES = ["pocket_patron.spiders"]
 NEWSPIDER_MODULE = "pocket_patron.spiders"
 
-
+LOG_LEVEL = 'INFO'
 # Ensure only valid image URLs are processed
 MEDIA_ALLOW_REDIRECTS = True
 ITEM_PIPELINES = {'pocket_patron.pipelines.CustomImagesPipeline': 1}

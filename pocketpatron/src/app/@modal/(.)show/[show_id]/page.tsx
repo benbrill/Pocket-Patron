@@ -2,12 +2,13 @@ import React from 'react';
 import { createClient } from '../../../../../utils/supabase/server';
 import { Modal } from '@/components/Modal';
 import Image from 'next/image';
-import AddShow from '@/components/AddShow';
+import AddShow from '@/components/AddShow'; 
 
 export interface UserShow {
     user_show_id: number;
     watched_at: string;
     elo_score: number;
+    notes: string;
 }
 
 
@@ -42,12 +43,17 @@ export default async function ShowPage(props: Props) {
                     <div>{show?.theater}</div>
                 </div>
                 <div>
-                    <div className='font-sans'>Show viewings</div>
-                    {show.user_shows.map((user_show: UserShow) => (
-                        <div key={user_show.user_show_id}>
-                            <div>{new Date(user_show.watched_at).toLocaleDateString()}</div>
-                        </div>
-                    ))}
+                    {show.user_shows.length > 0 && (
+                        <>
+                            <div className='font-sans'>Show viewings</div>
+                            {show.user_shows.map((user_show: UserShow) => (
+                                <div key={user_show.user_show_id}>
+                                    <div>{new Date(user_show.watched_at).toLocaleDateString()}</div>
+                                    <div>{user_show.notes}</div>
+                                </div>
+                            ))}
+                        </>
+                    )}
                 </div>
                 <div className='flex flex-col gap-2'>
                     <AddShow show={show}/>

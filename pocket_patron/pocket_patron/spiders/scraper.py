@@ -1,6 +1,42 @@
 import scrapy
 from ..items import PocketPatronItem
 
+
+class CurrentSpider(scrapy.Spider):
+    name = "current_scraper"
+    allowed_domains = ["playbill.com"]
+
+    start_urls = ["https://playbill.com/shows/broadway"]
+
+    def parse(self, response):
+        shows = response.css(".show-container")
+        print(shows)
+        for show in shows:
+            pocket_patron_item = PocketPatronItem()
+            # image_url = show.css(".cover-container a img").xpath("@src").get()
+            # if image_url:
+            #     pocket_patron_item["image_urls"] = ["https:" + image_url]
+            pocket_patron_item["title"] = show.css(".info-container .prod-title a::text").get()
+            pocket_patron_item["url"] = show.css(".info-container .prod-title a").xpath("@href").get()
+
+            pocket_patron_item["season"] = 2025
+            yield response.follow(pocket_patron_item["url"], self.show_details_parse, meta={"pocket_patron_item": pocket_patron_item})
+
+
+    def show_details_parse(self, response):
+        pocket_patron_item = response.meta['pocket_patron_item']
+
+        description = ''.join(response.css("div.bsp-bio-text").xpath('//p//text()').getall()).replace('\n', ' ').strip()
+        pocket_patron_item["description"] = description.replace('                                 ', ' ')
+        pocket_patron_item["theater"] = response.css("ul.bsp-bio-links li a::text").extract()[0]
+        pocket_patron_item["theater_address"] = response.css("ul.bsp-bio-links li a::text").extract()[1]
+        pocket_patron_item["tags"] = list(set(response.css("div.bsp-bio-content div.bsp-bio-subtitle h5::text").getall()))
+        image_url = response.css(".carousel-image").xpath("@data-flickity-lazyload").get()
+        if image_url:
+                pocket_patron_item["image_urls"] = ["https:" + image_url]
+
+        yield pocket_patron_item
+
 class ScraperSpider(scrapy.Spider):
     name = "history_scraper"
     allowed_domains = ["playbill.com"]
