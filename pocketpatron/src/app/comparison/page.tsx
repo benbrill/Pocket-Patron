@@ -21,12 +21,14 @@ type Show = {
 //   [show_id: number]: number;
 // }
 
+
 type ComparisonKey = `${number}-${number}`;
 
 const ShowComparison: React.FC = () => {
     const [shows, setShows] = useState<Show[]>([]);
     const [currentPair, setCurrentPair] = useState<[Show, Show] | null>(null);
     const [comparisonHistory, setComparisonHistory] = useState<Set<ComparisonKey>>(new Set());
+    const [matchups, setMatchups] = useState<Array<{ winner_id: number; loser_id: number }>>([])
     const router = useRouter();
 
     // ✅ Select a unique random pair
@@ -64,32 +66,17 @@ const ShowComparison: React.FC = () => {
     // ✅ Handle Show Click for Winner Selection
     const handleShowClick = (show_id: number) => {
         if (!currentPair) return;
-
+    
         const [show1, show2] = currentPair;
         const winnerId = show_id;
         const loserId = show1.show_id === show_id ? show2.show_id : show1.show_id;
-
-        // Prepare Elo scores
-        const eloScores = shows.reduce((acc, show) => {
-            acc[show.show_id] = show.elo_score;
-            return acc;
-        }, {} as Record<number, number>);
-
-        // Calculate new Elo scores
-        const newEloScores = calculateElo(eloScores, winnerId, loserId);
-
-        // Update shows with new scores
-        const updatedShows = shows.map((show) => ({
-            ...show,
-            elo_score: newEloScores[show.show_id] || show.elo_score,
-        }));
-        setShows(updatedShows);
-
-        console.log('Updated Elo Scores:', newEloScores);
-
-        // Select a new unique pair
-        selectRandomPair(updatedShows);
+    
+        // Save locally
+        setMatchups((prev) => [...prev, { winner_id: winnerId, loser_id: loserId }]);
+        // Select next pair
+        selectRandomPair(shows);
     };
+    
 
     // ✅ Fetch shows on initial load
     useEffect(() => {
@@ -106,24 +93,23 @@ const ShowComparison: React.FC = () => {
     }, []);
 
     const handleRankingsSubmit = () => {
-      console.log('Submit Rankings');
-
-      // fetch(`/api/submitRankings/${'98d5677a-aaad-473a-b798-284a244f261e'}`, {
-      fetch(`/api/submitRankings`, {
-          method: 'PUT',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(shows.map((show) => ({ show_id: show.show_id, elo_score: show.elo_score }))),
-      })
-          .then((response) => {
-              if (!response.ok) throw new Error(`Failed to submit rankings: ${response.statusText}`);
-              console.log('Rankings submitted successfully.');
-          })
-          .catch((error) => console.error('Error submitting rankings:', error));
-
-        router.push('/');
-    }
+        console.log('Submitting matchups...');
+    
+        fetch(`/api/matchups`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ matchups }),
+        })
+            .then((res) => {
+                if (!res.ok) throw new Error('Failed to submit matchups');
+                console.log('Matchups submitted successfully');
+                router.push('/dashboard');
+            })
+            .catch((err) => console.error(err));
+    };
+    
 
     const truncate = (text: string) => {
         return text.length > 35 ? text.substring(0, 35) + '...' : text;

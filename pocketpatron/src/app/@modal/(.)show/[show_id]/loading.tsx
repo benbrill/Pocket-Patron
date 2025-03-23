@@ -15,7 +15,7 @@ export default async function ShowPage(props: Props) {
     return ( 
         <Modal>
             <div className='grid grid-cols-2 gap-3'>
-                <Skeleton className="h-72 w-3/4"/>
+                <Skeleton className="h-64 w-full"/>
             </div>
             <div className="flex flex-col justify-between">
                 <div>

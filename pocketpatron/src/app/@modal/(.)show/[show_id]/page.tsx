@@ -3,6 +3,7 @@ import { createClient } from '../../../../../utils/supabase/server';
 import { Modal } from '@/components/Modal';
 import Image from 'next/image';
 import AddShow from '@/components/AddShow'; 
+import { Skeleton } from '@/components/ui/skeleton';
 
 export interface UserShow {
     user_show_id: number;
