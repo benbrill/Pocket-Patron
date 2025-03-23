@@ -23,7 +23,12 @@ type Show = {
 
 type ComparisonKey = `${number}-${number}`;
 
-const ShowComparison: React.FC = () => {
+interface ComparisonProps {
+    show_id: number;
+}
+
+export default function Comparison({ show_id }: ComparisonProps) {
+
     const [shows, setShows] = useState<Show[]>([]);
     const [currentPair, setCurrentPair] = useState<[Show, Show] | null>(null);
     const [comparisonHistory, setComparisonHistory] = useState<Set<ComparisonKey>>(new Set());
@@ -34,28 +39,26 @@ const ShowComparison: React.FC = () => {
     const selectRandomPair = (data: Show[]) => {
         if (data.length < 2) return;
 
-        let pair: [Show, Show] | null = null;
-
-        // Shuffle the array and find a unique pair
-        const shuffled = [...data].sort(() => 0.5 - Math.random());
-
-        for (let i = 0; i < shuffled.length; i++) {
-            for (let j = i + 1; j < shuffled.length; j++) {
-                const show1 = shuffled[i];
-                const show2 = shuffled[j];
-                const key: ComparisonKey = `${Math.min(show1.show_id, show2.show_id)}-${Math.max(show1.show_id, show2.show_id)}`;
-
-                if (!comparisonHistory.has(key)) {
-                    pair = [show1, show2];
-                    setComparisonHistory((prev) => new Set(prev).add(key));
-                    break;
-                }
-            }
-            if (pair) break;
+        let show1 = data.find((show) => show.show_id == show_id);
+        console.log('Show1:', show1);
+        if (!show1) {
+            console.warn(`Show with id ${show_id} not found.`);
+            return;
         }
+        const remainingShows = data.filter((show) => show.show_id !== show_id);
+        let show2 = remainingShows[Math.floor(Math.random() * remainingShows.length)];
+        // Shuffle the array and find a unique pair
 
-        if (pair) {
-            setCurrentPair(pair);
+        for (const potentialShow of remainingShows) {
+            const key: ComparisonKey = `${Math.min(show1!.show_id, potentialShow.show_id)}-${Math.max(show1!.show_id, potentialShow.show_id)}`;
+            if (!comparisonHistory.has(key)) {
+                show2 = potentialShow;
+                setComparisonHistory((prev) => new Set(prev).add(key));
+                break;
+            }
+        }
+        if (show2) {
+            setCurrentPair([show1, show2]);
         } else {
             console.warn('No unique comparisons left.');
             setCurrentPair(null);
@@ -113,6 +116,7 @@ const ShowComparison: React.FC = () => {
     const truncate = (text: string) => {
         return text.length > 35 ? text.substring(0, 35) + '...' : text;
     }
+    console.log('Current Pair:', currentPair);
 
     return (
         <div className="flex items-center flex-col bg-gradient-to-t h-lvh from-zinc-900 from-10% to-transparent to-30%">
@@ -158,4 +162,3 @@ const ShowComparison: React.FC = () => {
     );
 };
 
-export default ShowComparison;

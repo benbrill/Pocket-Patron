@@ -10,8 +10,9 @@ export default async function ShowRankings() {
 
     const { data: { user }, error : userError } = await supabase.auth.getUser();
     const user_id = user?.id;
-    const {data: shows} = await supabase.from("latest_user_show_scores").select('*').eq('user_id', user_id).order('elo_score', {ascending: false});
-
+    // const {data: shows} = await supabase.from("latest_user_show_scores").select('*').eq('user_id', user_id).order('elo_score', {ascending: false});
+    const {data: shows} = await supabase.from("user_shows").select('*, shows(*)').eq('user_id', user_id).order('score', {ascending: false});
+    console.log(shows)
     const truncate = (text: string) => {
         return text.length > 30 ? text.substring(0, 30) + '...' : text;
     }
@@ -30,16 +31,16 @@ export default async function ShowRankings() {
             <div className="flex flex-col items-center gap-2">
                 <div className="text-4xl font-sans font-bold my-2 m-auto">Show Rankings</div>
                 {shows?.map((show) => (
-                    <Link href={`/show/${show.show_id}`} key={show.show_id} className="grid grid-cols-3 gap-2 w-full lg:w-1/2 mx-3 border-b-2" scroll={false}>
+                    <Link href={`/show/${show.shows.show_id}`} key={show.showsshow_id} className="grid grid-cols-3 gap-2 w-full lg:w-1/2 mx-3 border-b-2" scroll={false}>
                         <div className="flex justify-center items-center pb-2">
-                            <Image src={`/${show.image_filename}`} alt={show.title} width={75} height={200} unoptimized/>
+                            <Image src={`/${show.shows.image_filename}`} alt={show.shows.title} width={75} height={200} unoptimized/>
                         </div>
                         <div className="flex flex-col justify-center">
-                            <div className="text-xl font-semibold font-sans">{truncate(show.title)}</div>
-                            <div className="font-mono text-muted-foreground">{show.season}</div>
+                            <div className="text-xl font-semibold font-sans">{truncate(show.shows.title)}</div>
+                            <div className="font-mono text-muted-foreground">{show.shows.season}</div>
                         </div>
                         <div className="flex flex-col items-center justify-center">
-                            <div className="text-4xl font-bold font-sans">{Math.round(show.elo_score /100 * 10) / 10}</div>
+                            <div className="text-4xl font-bold font-sans">{Math.round(show.score)}</div>
                             <div className="text-muted-foreground font-mono">08.13.2024</div>
                         </div>
                     </Link>

@@ -102,7 +102,7 @@ function ProfileForm({ className, show_id }: React.ComponentProps<"form"> & { sh
   };
 
   const reroute = () => {
-    router.push('/comparison/new');
+    router.push(`/comparison/${show_id}`);
     router.refresh();  // Forces a Next.js client-side refresh
   };
 
