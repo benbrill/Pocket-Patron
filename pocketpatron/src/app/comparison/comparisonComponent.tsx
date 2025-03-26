@@ -45,7 +45,7 @@ export default function Comparison({ show_id }: ComparisonProps) {
             console.warn(`Show with id ${show_id} not found.`);
             return;
         }
-        const remainingShows = data.filter((show) => show.show_id !== show_id);
+        const remainingShows = data.filter((show) => show.show_id != show_id);
         let show2 = remainingShows[Math.floor(Math.random() * remainingShows.length)];
         // Shuffle the array and find a unique pair
 

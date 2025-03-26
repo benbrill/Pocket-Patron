@@ -41,7 +41,9 @@ export default async function ShowRankings() {
                         </div>
                         <div className="flex flex-col items-center justify-center">
                             <div className="text-4xl font-bold font-sans">{Math.round(show.score)}</div>
-                            <div className="text-muted-foreground font-mono">08.13.2024</div>
+                            <div className="text-muted-foreground font-mono">
+                                {new Date(show.watched_at).toDateString()}
+                            </div>
                         </div>
                     </Link>
                 ))}
