@@ -31,6 +31,8 @@ export default async function ShowPage(props: Props) {
     .eq("show_id", show_id)
     .eq("user_shows.user_id", user?.id) // Filter user_shows by the current user_id
     .single(); // Ensure only one show is returned
+    // TODO: Remove modal and create a page with state for open and close
+    // layout similar to modal, but more easily control open/close state
     return ( 
         <Modal>
             <div className='grid grid-cols-2 gap-3'>

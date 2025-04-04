@@ -4,6 +4,7 @@ import SignIn from "@/components/SignIn";
 import Signout from "@/components/Signout";
 import { createClient } from "../../../utils/supabase/client";
 import TopShows from "@/components/TopShows";
+import Feed from "@/components/Feed";
 import { cache } from "react";
 
 async function getData() {
@@ -23,6 +24,7 @@ export default async function Home() {
   return (
     <div className="font-[family-name:var(--font-mono-sans)]">
       <TopShows />
+      <Feed />
       <DisplayCardHome data={data}/>
     </div>
   );

@@ -12,7 +12,6 @@ export default async function ShowRankings() {
     const user_id = user?.id;
     // const {data: shows} = await supabase.from("latest_user_show_scores").select('*').eq('user_id', user_id).order('elo_score', {ascending: false});
     const {data: shows} = await supabase.from("user_shows").select('*, shows(*)').eq('user_id', user_id).order('score', {ascending: false});
-    console.log(shows)
     const truncate = (text: string) => {
         return text.length > 30 ? text.substring(0, 30) + '...' : text;
     }
