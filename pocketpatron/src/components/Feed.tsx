@@ -14,14 +14,14 @@ export default async function Feed() {
             {shows?.map(((show) => (
                 <FeedItem key={show.shows.show_id} show={show} user={user}/>
             )))}
-            <p className="text-lg">This is the feed section.</p>
+            <p className="text-lg text-muted-foreground">See more</p>
         </div>
     )
 }
 
 function FeedItem({ show, user }: { show: {score: number, notes: string, shows: {image_filename: string,  title: string, watched_at: Date } }, user: any }) {
     return (
-        <div className="flex items-center w-full h-full font-sans gap-3 min-h-48 max-w-[26rem] border-b-2 p-2">
+        <div className="flex items-center w-full h-full font-sans gap-3 min-h-36 max-w-[26rem] border-b-2 px-10">
             <div className="flex justify-center items-center pb-2">
                 <Image src={`/${show.shows.image_filename}`} alt={show.shows.title} width={75} height={200} unoptimized/>
             </div>

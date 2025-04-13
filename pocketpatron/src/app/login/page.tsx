@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import OneTapComponent from '@/components/OneTapComponent';
 
 // ✅ Define Form Schema
 
@@ -26,6 +27,7 @@ export default function AuthPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Signup
+  const [isConfirmed, setIsConfirmed] = useState(false); // Confirmed email state
 
   // ✅ Form Handling
   const {
@@ -68,11 +70,17 @@ export default function AuthPage() {
               return;
           }
 
-          router.push('/dashboard'); // Redirect after signup
+        // Clear email and password fields
+        (document.getElementById('email') as HTMLInputElement).value = '';
+        (document.getElementById('password') as HTMLInputElement).value = '';
+
+        setIsConfirmed(true); // Set confirmed state
+        //   router.push('/dashboard'); // Redirect after signup
       }
   };
 
   return (
+    <>
       <div className="flex items-center justify-center 1vh">
           <Card className="w-full max-w-md">
               <CardHeader>
@@ -136,8 +144,19 @@ export default function AuthPage() {
                           </button>
                       </p>
                   </div>
+                  <OneTapComponent />
               </CardContent>
           </Card>
       </div>
+      {
+        isConfirmed && (
+            <div className="text-center mt-4">
+                <p className="text-green-500">
+                    A confirmation email has been sent to your email address. Please check your inbox and confirm your email.
+                </p>
+            </div>
+        )
+      }
+      </>
   );
 }
