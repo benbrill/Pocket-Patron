@@ -58,7 +58,7 @@ export async function updateSession(request: NextRequest) {
     url.pathname = '/dashboard'
     return NextResponse.redirect(url)
   }
-
+  
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.
   // If you're creating a new response object with NextResponse.next() make sure to:

@@ -2,14 +2,16 @@
 
 import Script from 'next/script'
 import { createClient } from '../../utils/supabase/client'
-import { CredentialResponse } from 'google-one-tap'
+// import { CredentialResponse } from 'google-one-tap'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 const supabase = createClient()
 
-interface GoogleCredentialResponse extends CredentialResponse {
+interface GoogleCredentialResponse {
+  clientId: string
   credential: string
+  select_by?: string
 }
 
 function OneTapComponent() {
