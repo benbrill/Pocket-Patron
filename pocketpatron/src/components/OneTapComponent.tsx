@@ -20,16 +20,21 @@ function OneTapComponent() {
     (window as any).handleSignInWithGoogle = async function (
       response: GoogleCredentialResponse
     ) {
-      const { data, error } = await supabase.auth.signInWithIdToken({
-        provider: 'google',
-        token: response.credential,
-      })
-
-      if (error) {
-        console.error('Login error:', error.message)
-      } else {
-        console.log('Logged in:', data)
-        router.push('/dashboard') // or your post-login route
+      try {
+        const { data, error } = await supabase.auth.signInWithIdToken({
+          provider: 'google',
+          token: response.credential,
+        })
+    
+        if (error) {
+          console.error('Supabase login error:', error.message)
+          // Show a user-friendly error message or fallback
+        } else {
+          router.push('/dashboard')
+        }
+      } catch (err) {
+        console.error('FedCM/GSI error:', err)
+        // Optional: Retry with redirect fallback or show sign-in button
       }
     }
   }, [])
@@ -47,15 +52,14 @@ function OneTapComponent() {
         data-itp_support="true"
         data-use_fedcm_for_prompt="true"
       ></div>
-
-      <div
-        className="g_id_signin"
-        data-type="icon"
-        data-shape="square"
-        data-theme="outline"
-        data-text="signin_with"
-        data-size="large"
-      ></div>
+      <div className="g_id_signin"
+     data-type="standard"
+     data-shape="pill"
+     data-theme="filled_black"
+     data-text="signin_with"
+     data-size="large"
+     data-logo_alignment="left">
+    </div>
     </>
   )
 }
