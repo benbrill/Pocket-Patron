@@ -1,5 +1,6 @@
 import scrapy
 from ..items import PocketPatronItem
+import re
 
 
 class CurrentSpider(scrapy.Spider):
@@ -35,15 +36,28 @@ class CurrentSpider(scrapy.Spider):
         if image_url:
                 pocket_patron_item["image_urls"] = ["https:" + image_url]
 
+        # cast = response.css("div.bsp-component-content div.bsp-list-promo ul.bsp-list-promo-list div.bsp-list-promo-section-text div.bsp-list-promo-title a").xpath("@href").getall()
+        potential_cast_links = response.css("div.bsp-component-cta a").xpath("@href").getall()
+        potential_cast = [
+            link for link in potential_cast_links if re.search(r"personlistpage\/.*cp", link)
+        ]
+
+        cast = potential_cast[0] if potential_cast else None
+        # yield response.follow(cast, self.parse_cast, meta={"pocket_patron_item": pocket_patron_item})
         yield pocket_patron_item
+
+    def parse_cast(self, response):
+        pocket_patron_item = response.meta['pocket_patron_item']
+        
+
 
 class ScraperSpider(scrapy.Spider):
     name = "history_scraper"
     allowed_domains = ["playbill.com"]
 
-    # years = [2021, 2022, 2023, 2024]
+    years = [2024]
     # years += [i for i in range(2010,2020)]
-    years = [i for i in range(1995,2010)]
+    # years = [i for i in range(1995,2010)]
     start_urls = [f"https://playbill.com/seasons?year={i}" for i in years]
 
     def parse(self, response):
